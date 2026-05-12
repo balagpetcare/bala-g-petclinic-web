@@ -1,0 +1,16 @@
+{
+  "name": "Bala G Pet Clinic",
+  "short_name": "Bala G",
+  "description": "Veterinary care and pet shop platform for Bala G Pet Clinic.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
