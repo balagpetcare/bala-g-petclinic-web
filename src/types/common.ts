@@ -53,12 +53,22 @@ export interface LinkItem {
 
 export interface ContactInfo {
   phone: string;
+  /** Optional second line (e.g. general enquiries). */
+  secondaryPhone?: string;
   email: string;
   address: string;
   city: string;
   state: string;
   pincode: string;
   country: string;
+}
+
+export interface EmergencyContact {
+  phone: string;
+  available: string;
+  label: string;
+  /** Marketing line shown on contact / emergency surfaces. */
+  headline: string;
 }
 
 export interface SocialLink {

@@ -1,8 +1,11 @@
-import type { ContactInfo, SocialLink, BusinessHours } from '@/types';
+import type { ContactInfo, SocialLink, BusinessHours, EmergencyContact } from '@/types';
+import { toBangladeshWhatsAppHref } from '@/lib/utils';
 
 export const siteConfig = {
   name: 'Bala G Pet Clinic',
   shortName: 'Bala G',
+  /** Shown under the logo in the main header (desktop). */
+  headerTagline: '24/7 Pet Emergency Care',
   description:
     'Premier veterinary care and pet shop in your area. Expert doctors, 24/7 emergency services, quality pet products, and comprehensive animal healthcare.',
   tagline: 'Caring for Your Pets Like Family',
@@ -14,19 +17,21 @@ export const siteConfig = {
 } as const;
 
 export const contactInfo: ContactInfo = {
-  phone: '+91 XXXXXXXXXX',
+  phone: '01881-227204',
+  secondaryPhone: '01701-022274',
   email: 'info@balagpetclinic.com',
-  address: 'Address Line 1',
-  city: 'City',
-  state: 'State',
-  pincode: 'XXXXXX',
-  country: 'India',
+  address: '364 DIT Road',
+  city: 'Dhaka',
+  state: '',
+  pincode: '1219',
+  country: 'Bangladesh',
 };
 
-export const emergencyContact = {
-  phone: '+91 XXXXXXXXXX',
+export const emergencyContact: EmergencyContact = {
+  phone: '01881-227204',
   available: '24/7',
-  label: 'Emergency Helpline',
+  label: '24/7 Emergency Call',
+  headline: '24/7 Emergency Veterinary Service',
 };
 
 export const socialLinks: SocialLink[] = [
@@ -42,7 +47,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     platform: 'whatsapp',
-    url: 'https://wa.me/91XXXXXXXXXX',
+    url: toBangladeshWhatsAppHref(contactInfo.phone),
     label: 'Chat on WhatsApp',
   },
 ];

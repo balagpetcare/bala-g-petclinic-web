@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import type { PageSEO, LocalBusinessSchema } from '@/types';
 import { siteConfig, contactInfo } from './site';
+import { toBangladeshInternationalTel } from '@/lib/utils';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -120,13 +121,13 @@ export function generateLocalBusinessSchema(): LocalBusinessSchema {
     '@type': 'VeterinaryCare',
     name: siteConfig.name,
     image: [`${siteConfig.url}/images/clinic.jpg`],
-    telephone: contactInfo.phone,
+    telephone: toBangladeshInternationalTel(contactInfo.phone),
     email: contactInfo.email,
     address: {
       '@type': 'PostalAddress',
       streetAddress: contactInfo.address,
       addressLocality: contactInfo.city,
-      addressRegion: contactInfo.state,
+      addressRegion: contactInfo.state.trim() || contactInfo.city,
       postalCode: contactInfo.pincode,
       addressCountry: contactInfo.country,
     },

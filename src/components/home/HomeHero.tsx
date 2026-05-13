@@ -7,7 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Container } from '@/components/ui';
 import { emergencyContact } from '@/config';
 import type { HomeHeroSlide } from '@/data/homepage';
-import { cn } from '@/lib/utils';
+import { cn, toTelHref } from '@/lib/utils';
 import { ImageFrame } from './ImageFrame';
 
 interface HomeHeroProps {
@@ -83,7 +83,7 @@ export function HomeHero({ slides }: HomeHeroProps) {
               <div className="mt-8 flex flex-col gap-3 border-t border-neutral-200 pt-6 text-sm text-neutral-600 dark:border-neutral-800 dark:text-neutral-400 sm:flex-row sm:items-center">
                 <a
                   className="inline-flex items-center gap-2 font-semibold text-primary-700 transition-colors hover:text-primary-800 dark:text-primary-400"
-                  href={`tel:${emergencyContact.phone}`}
+                  href={toTelHref(emergencyContact.phone)}
                 >
                   <Phone className="h-4 w-4" aria-hidden="true" />
                   {emergencyContact.label}: {emergencyContact.phone}

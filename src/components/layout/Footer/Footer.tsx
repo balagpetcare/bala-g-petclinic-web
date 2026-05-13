@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { siteConfig, contactInfo, businessHours, socialLinks, footerSections } from '@/config';
+import { formatContactAddress, toTelHref } from '@/lib/utils';
 
 const socialIcons = {
   facebook: Facebook,
@@ -35,7 +36,7 @@ export function Footer() {
               <div className="mt-6 space-y-3">
                 <a
                   className="flex items-center gap-3 text-sm hover:text-primary-400 transition-colors"
-                  href={`tel:${contactInfo.phone}`}
+                  href={toTelHref(contactInfo.phone)}
                 >
                   <Phone className="h-4 w-4 text-primary-400" />
                   {contactInfo.phone}
@@ -49,10 +50,7 @@ export function Footer() {
                 </a>
                 <div className="flex items-start gap-3 text-sm">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary-400" />
-                  <span>
-                    {contactInfo.address}, {contactInfo.city}, {contactInfo.state}{' '}
-                    {contactInfo.pincode}
-                  </span>
+                  <span>{formatContactAddress(contactInfo)}</span>
                 </div>
               </div>
 

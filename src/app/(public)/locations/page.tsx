@@ -6,6 +6,7 @@ import { PageHeader } from '@/components/shared';
 import { generatePageMetadata } from '@/config/seo';
 import { siteConfig, contactInfo, businessHours, emergencyContact } from '@/config/site';
 import { fetchPublicBranches } from '@/services/public-data';
+import { formatContactAddress, toTelHref } from '@/lib/utils';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Locations',
@@ -60,16 +61,12 @@ export default async function LocationsPage() {
               </div>
               <address className="not-italic text-muted-foreground space-y-1">
                 <p className="font-medium text-foreground">{siteConfig.name}</p>
-                <p>{contactInfo.address}</p>
-                <p>
-                  {contactInfo.city}, {contactInfo.state} {contactInfo.pincode}
-                </p>
-                <p>{contactInfo.country}</p>
+                <p className="text-sm leading-relaxed">{formatContactAddress(contactInfo)}</p>
               </address>
               <ul className="mt-6 space-y-3 text-sm">
                 <li className="flex gap-3">
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary-600" aria-hidden />
-                  <a className="hover:underline" href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}>
+                  <a className="hover:underline" href={toTelHref(contactInfo.phone)}>
                     {contactInfo.phone}
                   </a>
                 </li>
@@ -101,10 +98,12 @@ export default async function LocationsPage() {
               </ul>
               <div className="mt-8 rounded-lg bg-muted/50 p-4">
                 <p className="text-sm font-semibold text-foreground">{emergencyContact.label}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{emergencyContact.available}</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {emergencyContact.headline} · {emergencyContact.available}
+                </p>
                 <a
                   className="mt-2 inline-flex text-sm font-medium text-primary-600 hover:underline"
-                  href={`tel:${emergencyContact.phone.replace(/\s/g, '')}`}
+                  href={toTelHref(emergencyContact.phone)}
                 >
                   {emergencyContact.phone}
                 </a>

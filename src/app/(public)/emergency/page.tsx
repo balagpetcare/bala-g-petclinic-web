@@ -5,6 +5,7 @@ import { PageHeader } from '@/components/shared';
 import { EmergencyForm } from '@/components/forms';
 import { generatePageMetadata } from '@/config/seo';
 import { emergencyContact } from '@/config/site';
+import { toTelHref } from '@/lib/utils';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Emergency Veterinary Care',
@@ -28,7 +29,7 @@ export default function EmergencyPage() {
           <div className="mx-auto max-w-2xl">
             <a
               className="flex items-center justify-center gap-3 rounded-2xl border-2 border-error-200 bg-error-50 p-6 text-center transition-colors hover:bg-error-100 dark:border-error-800 dark:bg-error-950/30 dark:hover:bg-error-950/50"
-              href={`tel:${emergencyContact.phone.replace(/\s/g, '')}`}
+              href={toTelHref(emergencyContact.phone)}
             >
               <Phone className="h-7 w-7 text-error-600" aria-hidden="true" />
               <span>

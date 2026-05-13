@@ -3,6 +3,7 @@ import { Ambulance, ArrowRight, Phone } from 'lucide-react';
 import { Container } from '@/components/ui';
 import { MotionReveal } from '@/components/motion';
 import { emergencyContact } from '@/config';
+import { toTelHref } from '@/lib/utils';
 
 export function EmergencyCta() {
   return (
@@ -32,7 +33,7 @@ export function EmergencyCta() {
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <a
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-secondary-500 px-6 text-base font-medium text-white transition-colors hover:bg-secondary-600 focus:outline-none focus:ring-2 focus:ring-secondary-300"
-                href={`tel:${emergencyContact.phone}`}
+                href={toTelHref(emergencyContact.phone)}
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 {emergencyContact.phone}

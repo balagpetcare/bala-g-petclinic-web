@@ -74,10 +74,10 @@ export function ContactForm() {
   );
 
   return (
-    <form className="space-y-5" noValidate onSubmit={handleSubmit}>
+    <form className="min-w-0 space-y-5" noValidate onSubmit={handleSubmit}>
       <FormStatusMessage state={state} />
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid min-w-0 grid-cols-1 gap-5 sm:grid-cols-2">
         <Input
           error={errors.name}
           label="Full name"
@@ -99,13 +99,13 @@ export function ContactForm() {
         />
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid min-w-0 grid-cols-1 gap-5 sm:grid-cols-2">
         <Input
           error={errors.phone}
           hint="Optional"
           label="Phone number"
           name="phone"
-          placeholder="+91 XXXXXXXXXX"
+          placeholder="01XXX-XXXXXX"
           type="tel"
           value={formData.phone}
           onChange={(e) => updateField('phone', e.target.value)}
@@ -128,13 +128,13 @@ export function ContactForm() {
         name="message"
         placeholder="How can we help you?"
         required
-        rows={5}
+        rows={6}
         value={formData.message}
         onChange={(e) => updateField('message', e.target.value)}
       />
 
       <Button
-        className="w-full sm:w-auto"
+        className="min-h-[48px] w-full sm:w-auto"
         disabled={state.status === 'submitting'}
         size="lg"
         type="submit"

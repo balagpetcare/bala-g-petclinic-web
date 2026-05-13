@@ -1,27 +1,45 @@
 import type { NavItem, FooterSection } from '@/types';
 
+/** Shop categories — used in header “More” menu and mobile drawer. */
+export const shopNavChildren: NavItem[] = [
+  {
+    label: 'All products',
+    href: '/shop',
+    description: 'Browse our complete collection',
+  },
+  {
+    label: 'Pet food',
+    href: '/shop/category/pet-food',
+    description: 'Premium nutrition for your pets',
+  },
+  {
+    label: 'Accessories',
+    href: '/shop/category/accessories',
+    description: 'Toys, beds, and more',
+  },
+  {
+    label: 'Healthcare',
+    href: '/shop/category/healthcare',
+    description: 'Supplements and health products',
+  },
+];
+
+/** Primary header navigation (desktop + mobile main list). */
 export const mainNavItems: NavItem[] = [
-  {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'Book',
-    href: '/appointment',
-  },
+  { label: 'Home', href: '/' },
   {
     label: 'Services',
     href: '/services',
     children: [
       {
-        label: 'Veterinary Care',
-        href: '/services/veterinary',
-        description: 'Complete medical care for your pets',
+        label: 'Emergency care',
+        href: '/services/emergency',
+        description: '24/7 emergency veterinary support',
       },
       {
-        label: 'Vaccinations',
-        href: '/services/vaccinations',
-        description: 'Protect your pets with timely vaccinations',
+        label: 'Pet consultation',
+        href: '/services/veterinary',
+        description: 'Medical exams & treatment plans',
       },
       {
         label: 'Surgery',
@@ -29,76 +47,33 @@ export const mainNavItems: NavItem[] = [
         description: 'Expert surgical procedures',
       },
       {
+        label: 'Vaccination',
+        href: '/services/vaccinations',
+        description: 'Core & lifestyle vaccines',
+      },
+      {
         label: 'Grooming',
         href: '/services/grooming',
-        description: 'Professional pet grooming services',
-      },
-      {
-        label: 'Pet Boarding',
-        href: '/services/boarding',
-        description: 'Safe and comfortable boarding',
-      },
-      {
-        label: 'Emergency Care',
-        href: '/services/emergency',
-        description: '24/7 emergency veterinary services',
+        description: 'Professional grooming & hygiene',
       },
     ],
   },
-  {
-    label: 'Our Doctors',
-    href: '/doctors',
-  },
-  {
-    label: 'Locations',
-    href: '/locations',
-  },
-  {
-    label: 'Clinic',
-    href: '/clinic',
-  },
+  { label: 'Doctors', href: '/doctors' },
+  { label: 'Locations', href: '/locations' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+/** Secondary links (header “More” menu + mobile “Also visit”). */
+export const headerUtilityNavItems: NavItem[] = [
   {
     label: 'Shop',
     href: '/shop',
-    children: [
-      {
-        label: 'All Products',
-        href: '/shop',
-        description: 'Browse our complete collection',
-      },
-      {
-        label: 'Pet Food',
-        href: '/shop/category/pet-food',
-        description: 'Premium nutrition for your pets',
-      },
-      {
-        label: 'Accessories',
-        href: '/shop/category/accessories',
-        description: 'Toys, beds, and more',
-      },
-      {
-        label: 'Healthcare',
-        href: '/shop/category/healthcare',
-        description: 'Supplements and health products',
-      },
-    ],
+    children: shopNavChildren,
   },
-  {
-    label: 'Blog',
-    href: '/blog',
-  },
-  {
-    label: 'About',
-    href: '/about',
-  },
-  {
-    label: 'Testimonials',
-    href: '/testimonials',
-  },
-  {
-    label: 'Contact',
-    href: '/contact',
-  },
+  { label: 'Clinic', href: '/clinic' },
+  { label: 'Testimonials', href: '/testimonials' },
 ];
 
 export const footerSections: FooterSection[] = [

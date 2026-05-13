@@ -5,3 +5,4 @@ export * from './motion';
 export * from './shared';
 export * from './forms';
 export * from './ecommerce';
+export * from './contact';

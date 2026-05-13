@@ -104,6 +104,46 @@ export function isValidPhone(phone: string): boolean {
   return phoneRegex.test(phone);
 }
 
+/** Builds a `tel:` URI from any display format (non-digits stripped). */
+export function toTelHref(phone: string): string {
+  const digits = phone.replace(/\D/g, '');
+  return digits.length > 0 ? `tel:${digits}` : 'tel:';
+}
+
+/**
+ * Bangladesh WhatsApp deep link (`wa.me`) from a local mobile string (e.g. `01881-227204`).
+ */
+export function toBangladeshWhatsAppHref(localPhone: string): string {
+  const digits = localPhone.replace(/\D/g, '');
+  const withoutLeadingZero = digits.startsWith('0') ? digits.slice(1) : digits;
+  if (!withoutLeadingZero) {
+    return 'https://wa.me/';
+  }
+  return `https://wa.me/880${withoutLeadingZero}`;
+}
+
+/** E.164-style display for Bangladesh mobiles (for JSON-LD `telephone`). */
+export function toBangladeshInternationalTel(localPhone: string): string {
+  const digits = localPhone.replace(/\D/g, '');
+  const withoutLeadingZero = digits.startsWith('0') ? digits.slice(1) : digits;
+  if (!withoutLeadingZero) {
+    return '';
+  }
+  return `+880${withoutLeadingZero}`;
+}
+
+export function formatContactAddress(contact: {
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+  country: string;
+}): string {
+  const line2 = [contact.city, contact.state].filter((s) => s.trim().length > 0).join(', ');
+  const line3 = [contact.pincode, contact.country].filter((s) => String(s).trim().length > 0).join(' ');
+  return [contact.address, line2, line3].filter(Boolean).join(' · ');
+}
+
 export function generateId(): string {
   return Math.random().toString(36).substring(2, 11);
 }

@@ -5,6 +5,7 @@ import { PageHeader } from '@/components/shared';
 import { BookingWizard } from '@/components/booking';
 import { generatePageMetadata } from '@/config/seo';
 import { businessHours, contactInfo } from '@/config/site';
+import { toTelHref } from '@/lib/utils';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Book an Appointment',
@@ -104,7 +105,7 @@ export default function AppointmentPage({ searchParams = {} }: AppointmentPagePr
                 </p>
                 <a
                   className="mt-2 block text-lg font-semibold text-primary-600 hover:underline"
-                  href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                  href={toTelHref(contactInfo.phone)}
                 >
                   {contactInfo.phone}
                 </a>
