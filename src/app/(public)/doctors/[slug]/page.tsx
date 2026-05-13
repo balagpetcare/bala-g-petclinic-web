@@ -9,6 +9,7 @@ import { siteConfig } from '@/config';
 import { getDoctorBySlug, getAllDoctorSlugs } from '@/data/doctors';
 import { absoluteSiteUrl } from '@/lib/seo/absolute-url';
 import { JsonLdScript } from '@/lib/seo/json-ld';
+import { buildBreadcrumbJsonLd } from '@/lib/seo/schemas';
 import type { StructuredData } from '@/types/seo';
 import { fetchPublicDoctorBySlug } from '@/services/public-data';
 import { PublicReviewSection } from '@/components/reviews';
@@ -32,6 +33,7 @@ export async function generateMetadata({ params }: DoctorDetailPageProps): Promi
       description: api.bio ?? `${name} — ${api.specialization}`,
       keywords: [name, api.specialization, 'veterinarian', 'pet doctor'],
       canonical: absoluteSiteUrl(`/doctors/${params.slug}`),
+      path: `/doctors/${params.slug}`,
     });
   }
   const doctor = getDoctorBySlug(params.slug);
@@ -41,6 +43,7 @@ export async function generateMetadata({ params }: DoctorDetailPageProps): Promi
     description: `${doctor.name} specializes in ${doctor.specialization}. ${doctor.experience}.`,
     keywords: [doctor.name, doctor.specialization, 'veterinarian', 'pet doctor'],
     canonical: absoluteSiteUrl(`/doctors/${doctor.slug}`),
+    path: `/doctors/${doctor.slug}`,
   });
 }
 
@@ -80,9 +83,14 @@ export default async function DoctorDetailPage({ params }: DoctorDetailPageProps
       };
     }
 
+    const breadcrumbLd = buildBreadcrumbJsonLd([
+      { name: 'Doctors', path: '/doctors' },
+      { name, path: `/doctors/${params.slug}` },
+    ]);
+
     return (
       <>
-        <JsonLdScript data={physicianLd} />
+        <JsonLdScript data={[physicianLd, breadcrumbLd]} />
         <PageHeader
           description={`${api.specialization} · ${api.experienceYears}+ yrs experience`}
           eyebrow={api.qualification}
@@ -205,9 +213,14 @@ export default async function DoctorDetailPage({ params }: DoctorDetailPageProps
     },
   };
 
+  const breadcrumbLd = buildBreadcrumbJsonLd([
+    { name: 'Doctors', path: '/doctors' },
+    { name: doctor.name, path: `/doctors/${doctor.slug}` },
+  ]);
+
   return (
     <>
-      <JsonLdScript data={physicianLd} />
+      <JsonLdScript data={[physicianLd, breadcrumbLd]} />
       <PageHeader
         description={`${doctor.specialization} • ${doctor.experience}`}
         eyebrow={doctor.title}

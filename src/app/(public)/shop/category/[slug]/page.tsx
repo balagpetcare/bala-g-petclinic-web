@@ -6,6 +6,8 @@ import { ProductGrid } from '@/components/ecommerce';
 import { generatePageMetadata } from '@/config/seo';
 import { ecommerceApi } from '@/services';
 import { productCategories } from '@/data/ecommerce';
+import { JsonLdScript } from '@/lib/seo/json-ld';
+import { buildBreadcrumbJsonLd } from '@/lib/seo/schemas';
 
 interface CategoryPageProps {
   params: { slug: string };
@@ -22,6 +24,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     title: `${categoryRes.data.name} Products`,
     description: categoryRes.data.description,
     keywords: [categoryRes.data.name, 'shop', 'pet products'],
+    path: `/shop/category/${params.slug}`,
   });
 }
 
@@ -34,8 +37,14 @@ export default async function ShopCategoryPage({ params }: CategoryPageProps) {
   if (!categoryRes.success || !categoryRes.data) notFound();
   const products = productsRes.success && productsRes.data ? productsRes.data : [];
 
+  const breadcrumbLd = buildBreadcrumbJsonLd([
+    { name: 'Shop', path: '/shop' },
+    { name: categoryRes.data.name, path: `/shop/category/${params.slug}` },
+  ]);
+
   return (
     <>
+      <JsonLdScript data={breadcrumbLd} />
       <PageHeader
         description={categoryRes.data.description}
         eyebrow="Product category"

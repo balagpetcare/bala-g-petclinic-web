@@ -12,6 +12,7 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     'Schedule a veterinary appointment at Bala G Pet Clinic. Choose your preferred date, time, and service for your pet.',
   keywords: ['book appointment', 'veterinary appointment', 'pet clinic booking'],
+  path: '/appointment',
 });
 
 interface AppointmentPageProps {

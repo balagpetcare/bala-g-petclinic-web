@@ -1,6 +1,13 @@
 import type { StructuredData } from '@/types/seo';
 
-export function JsonLdScript({ data }: { data: StructuredData | StructuredData[] }) {
+/** JSON-LD document, @graph wrapper, or an array of nodes (serialized as a JSON array). */
+export type JsonLdScriptData =
+  | StructuredData
+  | StructuredData[]
+  | Record<string, unknown>
+  | Record<string, unknown>[];
+
+export function JsonLdScript({ data }: { data: JsonLdScriptData }) {
   const payload = Array.isArray(data) ? data : [data];
   return (
     <script

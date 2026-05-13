@@ -5,7 +5,7 @@ export const faqs: FaqItem[] = [
     id: 'faq-1',
     question: 'What are the clinic operating hours?',
     answer:
-      'We are open Monday through Saturday from 9:00 AM to 9:00 PM, and Sunday from 10:00 AM to 6:00 PM. Emergency services are available 24/7 by calling our emergency helpline.',
+      'Bala G Pet Clinic operates as an emergency veterinary service with 24-hour availability for urgent cases on DIT Road, Dhaka 1219. Call our emergency line any time for guidance or to arrange immediate care.',
     category: 'General',
   },
   {

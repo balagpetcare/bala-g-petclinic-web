@@ -1,6 +1,7 @@
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { Card } from '@/components/ui';
 import { businessHours, contactInfo, emergencyContact } from '@/config/site';
+import { localSeoEntity } from '@/config/seo-entity';
 import { cn, formatContactAddress, toTelHref } from '@/lib/utils';
 
 export interface ContactDetailsPanelProps {
@@ -114,12 +115,25 @@ export function ContactDetailsPanel({ className }: ContactDetailsPanelProps) {
       </Card>
 
       <div className="overflow-hidden rounded-2xl border border-neutral-200 shadow-soft dark:border-neutral-800">
-        <div className="flex aspect-[16/10] min-h-[12rem] w-full max-w-full items-center justify-center bg-neutral-100 dark:bg-neutral-900 sm:min-h-[14rem] md:aspect-[21/9]">
-          <div className="max-w-xs px-4 text-center">
-            <MapPin className="mx-auto h-8 w-8 text-neutral-400" aria-hidden="true" />
-            <p className="mt-2 text-sm font-medium text-neutral-600 dark:text-neutral-400">Google Maps</p>
-            <p className="text-xs text-neutral-500">Integration coming soon</p>
-          </div>
+        <iframe
+          allowFullScreen
+          className="aspect-[16/10] min-h-[12rem] w-full max-w-full border-0 sm:min-h-[14rem] md:aspect-[21/9]"
+          height="450"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          src={localSeoEntity.mapsEmbedUrl}
+          title="Google Maps — Bala G Pet Clinic, Dhaka"
+          width="600"
+        />
+        <div className="border-t border-neutral-200 bg-neutral-50 px-4 py-3 text-center dark:border-neutral-800 dark:bg-neutral-900/50">
+          <a
+            className="text-sm font-medium text-primary-700 hover:underline dark:text-primary-400"
+            href={localSeoEntity.googleMapsShareUrl}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Open in Google Maps
+          </a>
         </div>
       </div>
     </div>

@@ -6,6 +6,8 @@ import { Container, Section, Badge } from '@/components/ui';
 import { PageHeader } from '@/components/shared';
 import { generatePageMetadata } from '@/config/seo';
 import { getServiceBySlug, getAllServiceSlugs } from '@/data/services';
+import { JsonLdScript } from '@/lib/seo/json-ld';
+import { buildBreadcrumbJsonLd, buildServiceJsonLd } from '@/lib/seo/schemas';
 
 interface ServiceDetailPageProps {
   params: { slug: string };
@@ -23,6 +25,7 @@ export function generateMetadata({ params }: ServiceDetailPageProps): Metadata {
     title: service.title,
     description: service.shortDescription,
     keywords: [service.title.toLowerCase(), 'veterinary', 'pet care', 'clinic service'],
+    path: `/services/${params.slug}`,
   });
 }
 
@@ -37,6 +40,19 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
 
   return (
     <>
+      <JsonLdScript
+        data={[
+          buildServiceJsonLd({
+            name: service.title,
+            description: service.shortDescription,
+            path: `/services/${service.slug}`,
+          }),
+          buildBreadcrumbJsonLd([
+            { name: 'Services', path: '/services' },
+            { name: service.title, path: `/services/${service.slug}` },
+          ]),
+        ]}
+      />
       <PageHeader
         description={service.shortDescription}
         eyebrow="Service details"

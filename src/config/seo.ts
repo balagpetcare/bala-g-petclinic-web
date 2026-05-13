@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next';
-import type { PageSEO, LocalBusinessSchema } from '@/types';
+import type { PageSEO } from '@/types';
 import { siteConfig, contactInfo } from './site';
-import { toBangladeshInternationalTel } from '@/lib/utils';
+import { localSeoEntity } from './seo-entity';
+import { absoluteSiteUrl } from '@/lib/seo/absolute-url';
+export { generateLocalBusinessSchema, buildRootJsonLdGraph } from '@/lib/seo/schemas';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -21,6 +23,7 @@ export const defaultMetadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
+    ...localSeoEntity.primaryKeywords,
     'pet clinic',
     'veterinary',
     'animal hospital',
@@ -85,52 +88,58 @@ export const defaultMetadata: Metadata = {
   alternates: {
     canonical: siteConfig.url,
   },
+  verification: process.env['NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION']
+    ? { google: process.env['NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION'] }
+    : undefined,
 };
 
 export function generatePageMetadata(seo: PageSEO): Metadata {
   const title = seo.title;
   const description = seo.description;
   const image = seo.image || siteConfig.ogImage;
+  const absImage = /^https?:\/\//i.test(image) ? image : absoluteSiteUrl(image);
+  const canonical = seo.canonical ?? (seo.path ? absoluteSiteUrl(seo.path) : undefined);
+  const ogType = seo.openGraphType ?? 'website';
 
   return {
     title,
     description,
     keywords: seo.keywords,
     openGraph: {
+      type: ogType,
+      url: canonical,
+      siteName: siteConfig.name,
+      locale: siteConfig.locale,
       title,
       description,
-      images: [{ url: image }],
+      images: [
+        {
+          url: absImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
+      card: 'summary_large_image',
       title,
       description,
-      images: [image],
+      images: [absImage],
     },
     robots: seo.noIndex
-      ? { index: false, follow: false }
-      : { index: true, follow: true },
-    alternates: seo.canonical
-      ? { canonical: seo.canonical }
-      : undefined,
-  };
-}
-
-export function generateLocalBusinessSchema(): LocalBusinessSchema {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'VeterinaryCare',
-    name: siteConfig.name,
-    image: [`${siteConfig.url}/images/clinic.jpg`],
-    telephone: toBangladeshInternationalTel(contactInfo.phone),
-    email: contactInfo.email,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: contactInfo.address,
-      addressLocality: contactInfo.city,
-      addressRegion: contactInfo.state.trim() || contactInfo.city,
-      postalCode: contactInfo.pincode,
-      addressCountry: contactInfo.country,
-    },
-    priceRange: '$$',
+      ? { index: false, follow: false, googleBot: { index: false, follow: false } }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+          },
+        },
+    alternates: canonical ? { canonical } : undefined,
   };
 }

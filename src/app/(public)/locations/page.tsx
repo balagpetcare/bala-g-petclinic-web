@@ -12,6 +12,7 @@ export const metadata: Metadata = generatePageMetadata({
   title: 'Locations',
   description: `Find ${siteConfig.name} — hours, contact details, branches, and how to reach us for appointments and emergencies.`,
   keywords: ['locations', 'clinic hours', 'veterinary', 'pet clinic', 'contact'],
+  path: '/locations',
 });
 
 export default async function LocationsPage() {

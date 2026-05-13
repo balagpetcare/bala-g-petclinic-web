@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { siteConfig } from '@/config';
 import { getAllDoctorSlugs } from '@/data/doctors';
 import { getAllServiceSlugs } from '@/data/services';
+import { productCategories } from '@/data/ecommerce';
 import { http } from '@/lib/api/http';
 import type { BlogPageSummary, BlogPostPublic } from '@/types/cms-public';
 import type { PublicBranchSummary } from '@/types/public-booking';
@@ -36,6 +37,20 @@ async function collectBranchLocationEntries(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl()}/locations/${encodeURIComponent(b.slug)}`,
       changeFrequency: 'weekly' as const,
       priority: 0.72,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+async function collectBlogCategoryQueryEntries(): Promise<MetadataRoute.Sitemap> {
+  try {
+    const res = await http.get<{ slug: string }[]>('cms/public/categories', { cache: 'no-store' });
+    if (!res.success || !Array.isArray(res.data)) return [];
+    return res.data.map((c) => ({
+      url: `${baseUrl()}/blog?categorySlug=${encodeURIComponent(c.slug)}`,
+      changeFrequency: 'weekly' as const,
+      priority: 0.62,
     }));
   } catch {
     return [];
@@ -115,18 +130,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  const shopCategoryEntries: MetadataRoute.Sitemap = productCategories.map((c) => ({
+    url: `${base}/shop/category/${encodeURIComponent(c.slug)}`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.64,
+  }));
+
   let cmsBlogEntries: MetadataRoute.Sitemap = [];
   let cmsPageEntries: MetadataRoute.Sitemap = [];
   let branchEntries: MetadataRoute.Sitemap = [];
+  let blogCategoryEntries: MetadataRoute.Sitemap = [];
   try {
-    const [blogs, pages, branches] = await Promise.all([
+    const [blogs, pages, branches, blogCats] = await Promise.all([
       collectPublishedBlogEntries(),
       collectPublishedPageEntries(),
       collectBranchLocationEntries(),
+      collectBlogCategoryQueryEntries(),
     ]);
     cmsBlogEntries = blogs;
     cmsPageEntries = pages;
     branchEntries = branches;
+    blogCategoryEntries = blogCats;
   } catch {
     // Build-time or API downtime: still ship static + catalog URLs.
   }
@@ -135,8 +159,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticEntries,
     ...doctorEntries,
     ...serviceEntries,
+    ...shopCategoryEntries,
     ...branchEntries,
     ...cmsBlogEntries,
+    ...blogCategoryEntries,
     ...cmsPageEntries,
   ];
 }

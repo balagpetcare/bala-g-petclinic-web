@@ -10,6 +10,7 @@ export const metadata: Metadata = generatePageMetadata({
   title: 'Testimonials',
   description: 'Stories from pet parents who trust Bala G Pet Clinic for routine, urgent, and long-term care.',
   keywords: ['testimonials', 'pet clinic reviews', 'veterinary care stories'],
+  path: '/testimonials',
 });
 
 export default function TestimonialsPage() {

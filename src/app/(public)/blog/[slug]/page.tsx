@@ -11,6 +11,7 @@ import { generatePageMetadata } from '@/config/seo';
 import { siteConfig } from '@/config';
 import { absolutizeMediaUrl, absoluteSiteUrl } from '@/lib/seo/absolute-url';
 import { JsonLdScript } from '@/lib/seo/json-ld';
+import { buildBreadcrumbJsonLd } from '@/lib/seo/schemas';
 import { fetchPublishedBlogBySlug, fetchRelatedBlogs } from '@/services/cms-public';
 import type { BlogPostPublic } from '@/types/cms-public';
 
@@ -36,6 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     image: absImage,
     noIndex: post.noIndex,
     canonical,
+    path,
+    openGraphType: 'article',
   });
 }
 
@@ -49,6 +52,7 @@ export default async function BlogArticlePage({ params }: Props) {
   const related = relatedRes.success && Array.isArray(relatedRes.data) ? relatedRes.data : [];
 
   const url = absoluteSiteUrl(`/blog/${post.slug}`);
+  const siteRoot = siteConfig.url.replace(/\/$/, '');
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -59,12 +63,17 @@ export default async function BlogArticlePage({ params }: Props) {
     dateModified: post.updatedAt,
     author: { '@type': 'Person', name: post.author },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-    publisher: { '@type': 'Organization', name: siteConfig.name },
+    publisher: { '@type': 'Organization', '@id': `${siteRoot}/#organization`, name: siteConfig.name },
   };
+
+  const breadcrumbLd = buildBreadcrumbJsonLd([
+    { name: 'Blog', path: '/blog' },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ]);
 
   return (
     <>
-      <JsonLdScript data={jsonLd} />
+      <JsonLdScript data={[jsonLd, breadcrumbLd]} />
       <PageHeader
         description={post.excerpt ?? `By ${post.author}`}
         eyebrow={post.category?.name ?? 'Article'}

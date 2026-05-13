@@ -9,18 +9,25 @@ import {
   StickyMobileCallBar,
 } from '@/components/contact';
 import { generatePageMetadata } from '@/config/seo';
+import { localSeoEntity } from '@/config/seo-entity';
 import { emergencyContact } from '@/config/site';
+import { JsonLdScript } from '@/lib/seo/json-ld';
+import { buildBreadcrumbJsonLd } from '@/lib/seo/schemas';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Contact Us',
   description:
-    'Get in touch with Bala G Pet Clinic. Visit us, call us, or send us a message. We are here to help with your pet care needs.',
-  keywords: ['contact', 'pet clinic', 'address', 'phone', 'location'],
+    'Get in touch with Bala G Pet Clinic on DIT Road, Dhaka 1219. Call, WhatsApp, email, or visit — 24-hour emergency veterinary line and map directions.',
+  keywords: ['contact', 'pet clinic Dhaka', 'veterinary address', 'emergency vet phone', ...localSeoEntity.primaryKeywords],
+  path: '/contact',
 });
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLdScript
+        data={buildBreadcrumbJsonLd([{ name: 'Contact', path: '/contact' }])}
+      />
       <PageHeader
         className="py-10 sm:py-14 md:py-20"
         description="We'd love to hear from you. Visit us at the clinic, give us a call, or send us a message."

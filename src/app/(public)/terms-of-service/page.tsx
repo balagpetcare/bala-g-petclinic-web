@@ -8,6 +8,7 @@ export const metadata: Metadata = generatePageMetadata({
   title: 'Terms of Service',
   description: `Terms of service for ${siteConfig.name}. Read our terms and conditions for using our website and veterinary services.`,
   keywords: ['terms of service', 'terms and conditions', 'usage policy'],
+  path: '/terms-of-service',
 });
 
 export default function TermsOfServicePage() {

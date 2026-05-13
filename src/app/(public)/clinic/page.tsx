@@ -11,6 +11,7 @@ export const metadata: Metadata = generatePageMetadata({
   title: 'Our Clinic',
   description: `${siteConfig.name} — multi-disciplinary veterinary care, modern facilities, and a compassionate team.`,
   keywords: ['pet clinic', 'veterinary hospital', 'animal care', 'Bala G Pet Clinic'],
+  path: '/clinic',
 });
 
 export default async function ClinicPage() {

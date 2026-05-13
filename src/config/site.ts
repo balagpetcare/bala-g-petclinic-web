@@ -7,11 +7,11 @@ export const siteConfig = {
   /** Shown under the logo in the main header (desktop). */
   headerTagline: '24/7 Pet Emergency Care',
   description:
-    'Premier veterinary care and pet shop in your area. Expert doctors, 24/7 emergency services, quality pet products, and comprehensive animal healthcare.',
+    'Emergency veterinary clinic on DIT Road, Dhaka 1219. 24-hour vet support, vaccinations, surgery, grooming, and vet-led pet shop — trusted animal hospital for cats and dogs in Bangladesh.',
   tagline: 'Caring for Your Pets Like Family',
   url: process.env['NEXT_PUBLIC_SITE_URL'] || 'https://balagpetclinic.com',
   ogImage: '/images/og-image.jpg',
-  locale: 'en_IN',
+  locale: 'en_BD',
   defaultCurrency: 'INR',
   currencySymbol: '₹',
 } as const;

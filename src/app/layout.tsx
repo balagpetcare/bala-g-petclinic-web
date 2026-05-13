@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Poppins } from 'next/font/google';
 import { defaultMetadata, viewport as viewportConfig } from '@/config/seo';
+import { buildRootJsonLdGraph } from '@/lib/seo/schemas';
+import { JsonLdScript } from '@/lib/seo/json-ld';
 import { AppProviders } from '@/providers';
 import '@/styles/globals.css';
 
@@ -49,6 +51,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <JsonLdScript data={buildRootJsonLdGraph()} />
         <AppProviders>
           {children}
         </AppProviders>

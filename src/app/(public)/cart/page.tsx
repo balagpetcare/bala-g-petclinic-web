@@ -8,6 +8,8 @@ export const metadata: Metadata = generatePageMetadata({
   title: 'Cart',
   description: 'Review your selected products and continue to checkout.',
   keywords: ['cart', 'shopping cart', 'checkout'],
+  path: '/cart',
+  noIndex: true,
 });
 
 export default function CartPage() {

@@ -1,15 +1,17 @@
 import type { Metadata } from 'next';
 import { HomeSections } from '@/components/home';
-import { generateLocalBusinessSchema } from '@/config/seo';
+import { generatePageMetadata } from '@/config/seo';
+import { localSeoEntity } from '@/config/seo-entity';
 import { siteConfig } from '@/config';
-import { JsonLdScript } from '@/lib/seo/json-ld';
 import { fetchPublishedBlogs } from '@/services/cms-public';
 import type { BlogPreviewItem } from '@/data/homepage';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: `${siteConfig.name} | ${siteConfig.tagline}`,
   description: siteConfig.description,
-};
+  keywords: [...localSeoEntity.primaryKeywords, 'Bala G Pet Clinic', 'DIT Road pet clinic', '24 hour vet Dhaka'],
+  path: '/',
+});
 
 export default async function HomePage() {
   let blogPreviewPosts: BlogPreviewItem[] | null = null;
@@ -30,7 +32,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLdScript data={generateLocalBusinessSchema()} />
       <HomeSections blogPreviewPosts={blogPreviewPosts} />
     </>
   );

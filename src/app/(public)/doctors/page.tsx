@@ -12,6 +12,7 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     'Meet our experienced veterinary team. Qualified veterinarians specializing in general medicine, surgery, dermatology, and emergency care.',
   keywords: ['veterinarian', 'pet doctor', 'vet specialist', 'animal doctor'],
+  path: '/doctors',
 });
 
 export default async function DoctorsPage() {

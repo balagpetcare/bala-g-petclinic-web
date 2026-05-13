@@ -8,6 +8,8 @@ import { ProductGrid, ProductPurchasePanel, ProductReviews } from '@/components/
 import { generatePageMetadata } from '@/config/seo';
 import { ecommerceApi } from '@/services';
 import { products } from '@/data/ecommerce';
+import { JsonLdScript } from '@/lib/seo/json-ld';
+import { buildBreadcrumbJsonLd, buildProductJsonLd } from '@/lib/seo/schemas';
 
 interface ProductDetailPageProps {
   params: { slug: string };
@@ -25,6 +27,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
     title: response.data.name,
     description: response.data.description,
     keywords: [...response.data.tags, response.data.categorySlug, 'pet product'],
+    path: `/shop/${params.slug}`,
   });
 }
 
@@ -41,8 +44,21 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const reviews = reviewsRes.success && reviewsRes.data ? reviewsRes.data : [];
   const related = relatedRes.success && relatedRes.data ? relatedRes.data : [];
 
+  const productLd = buildProductJsonLd({
+    name: product.name,
+    description: product.description,
+    path: `/shop/${product.slug}`,
+    image: product.image.src,
+    sku: product.id,
+  });
+  const breadcrumbLd = buildBreadcrumbJsonLd([
+    { name: 'Shop', path: '/shop' },
+    { name: product.name, path: `/shop/${product.slug}` },
+  ]);
+
   return (
     <>
+      <JsonLdScript data={[productLd, breadcrumbLd]} />
       <PageHeader
         centered={false}
         description={product.description}

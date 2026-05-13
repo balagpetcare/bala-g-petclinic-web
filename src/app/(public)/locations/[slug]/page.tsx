@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: BranchPageProps): Promise<Met
     description: `Hours, contact, and directions for ${title}.`,
     keywords: [title, 'pet clinic location', 'veterinary branch'],
     canonical: absoluteSiteUrl(`/locations/${params.slug}`),
+    path: `/locations/${params.slug}`,
   });
 }
 

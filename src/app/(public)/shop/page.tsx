@@ -11,6 +11,7 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     'Explore pet food, healthcare, and accessories selected by our veterinary team.',
   keywords: ['pet shop', 'pet products', 'pet food', 'pet accessories'],
+  path: '/shop',
 });
 
 interface ShopPageProps {

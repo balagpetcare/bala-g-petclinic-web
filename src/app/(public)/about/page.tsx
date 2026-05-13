@@ -11,6 +11,7 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     `Learn about ${siteConfig.name} — our mission, values, team, and commitment to providing comprehensive veterinary care and pet wellness services.`,
   keywords: ['about', 'pet clinic', 'veterinary', 'mission', 'team'],
+  path: '/about',
 });
 
 const values = [

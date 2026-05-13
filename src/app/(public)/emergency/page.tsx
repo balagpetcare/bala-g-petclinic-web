@@ -5,18 +5,27 @@ import { PageHeader } from '@/components/shared';
 import { EmergencyForm } from '@/components/forms';
 import { generatePageMetadata } from '@/config/seo';
 import { emergencyContact } from '@/config/site';
+import { JsonLdScript } from '@/lib/seo/json-ld';
+import { buildBreadcrumbJsonLd, buildEmergencyServiceJsonLd } from '@/lib/seo/schemas';
 import { toTelHref } from '@/lib/utils';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Emergency Veterinary Care',
   description:
     'Pet emergency? Contact Bala G Pet Clinic immediately for urgent veterinary assistance. Available 24/7 for critical pet health situations.',
-  keywords: ['pet emergency', 'emergency vet', 'urgent pet care', '24/7 veterinary'],
+  keywords: ['pet emergency', 'emergency vet Dhaka', 'urgent pet care', '24/7 veterinary', 'animal hospital Dhaka'],
+  path: '/emergency',
 });
 
 export default function EmergencyPage() {
   return (
     <>
+      <JsonLdScript
+        data={[
+          buildEmergencyServiceJsonLd(),
+          buildBreadcrumbJsonLd([{ name: 'Emergency', path: '/emergency' }]),
+        ]}
+      />
       <PageHeader
         className="bg-gradient-to-b from-error-50/60 to-white dark:from-error-950/20 dark:to-neutral-950"
         description="If your pet needs urgent help, call us immediately. For non-critical situations, submit the form below and our team will contact you within minutes."

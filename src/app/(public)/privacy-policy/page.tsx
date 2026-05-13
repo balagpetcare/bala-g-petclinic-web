@@ -8,6 +8,7 @@ export const metadata: Metadata = generatePageMetadata({
   title: 'Privacy Policy',
   description: `Privacy policy for ${siteConfig.name}. Learn how we collect, use, and protect your personal information.`,
   keywords: ['privacy policy', 'data protection', 'personal information'],
+  path: '/privacy-policy',
 });
 
 export default function PrivacyPolicyPage() {

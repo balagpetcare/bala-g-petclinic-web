@@ -7,6 +7,9 @@ export interface PageSEO {
   image?: string;
   noIndex?: boolean;
   canonical?: string;
+  /** When `canonical` is omitted, it is derived as `metadataBase + path`. */
+  path?: string;
+  openGraphType?: 'website' | 'article';
 }
 
 export interface StructuredData {
@@ -16,7 +19,7 @@ export interface StructuredData {
 }
 
 export interface LocalBusinessSchema extends StructuredData {
-  '@type': 'VeterinaryCare';
+  '@type': 'VeterinaryCare' | string;
   name: string;
   image: string[];
   telephone: string;

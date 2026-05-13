@@ -11,6 +11,7 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     'Comprehensive veterinary services including consultations, vaccinations, emergency care, grooming, dental care, and nutrition counseling for your pets.',
   keywords: ['veterinary services', 'pet care', 'vaccinations', 'grooming', 'emergency vet'],
+  path: '/services',
 });
 
 export default function ServicesPage() {

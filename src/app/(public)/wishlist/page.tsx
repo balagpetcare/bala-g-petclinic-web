@@ -8,6 +8,8 @@ export const metadata: Metadata = generatePageMetadata({
   title: 'Wishlist',
   description: 'Save products you like and revisit them anytime.',
   keywords: ['wishlist', 'saved products', 'pet shop wishlist'],
+  path: '/wishlist',
+  noIndex: true,
 });
 
 export default function WishlistPage() {

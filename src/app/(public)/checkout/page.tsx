@@ -8,6 +8,8 @@ export const metadata: Metadata = generatePageMetadata({
   title: 'Checkout',
   description: 'Complete your order details. Payment integration will be enabled with backend.',
   keywords: ['checkout', 'order', 'shipping details'],
+  path: '/checkout',
+  noIndex: true,
 });
 
 export default function CheckoutPage() {
